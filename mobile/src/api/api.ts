@@ -34,24 +34,5 @@ export const getUser = async () => api.get('/user');
 export const registrarRefeicao = async () => api.post('/refeicao');
 
 export const getAlunos = async () => api.get('/alunos');
-/*
-Route::post('/auth/login', [AuthController::class, 'login']);
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::post('/auth/logout', [AuthController::class, 'logout']);
-    Route::post('/auth/verify-password', [AuthController::class, 'VerifyPassword']);
-
-    Route::get('/perfil', [TokenController::class, 'perfil']);
-    Route::post('/store', [TokenController::class, 'store']);
-    
-    Route::get('/alunos', [UserController::class, 'indexAlunos']);
-});
-
-
-*/
 
 export default api;
