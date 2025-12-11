@@ -17,7 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/verify-password', [AuthController::class, 'VerifyPassword']);
 
     Route::get('/perfil', [TokenController::class, 'perfil']);
-    Route::post('/store', [TokenController::class, 'store']);
+    Route::post('/refeicao', [TokenController::class, 'registrarRefeicao']);
+
     
     Route::get('/alunos', [UserController::class, 'indexAlunos']);
 });
