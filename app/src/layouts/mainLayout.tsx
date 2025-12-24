@@ -5,7 +5,7 @@ import "../style.css";
 
 export function MainLayout() {
   return (
-    <div className="app-container">
+    <div className="app-container min-h-screen bg-indigo-50/30">
       <header>
         <Navbar />
       </header>

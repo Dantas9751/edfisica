@@ -6,4 +6,5 @@ export interface User {
   tipo: "adm" | "aluno";
   created_at: string;
   updated_at: string;
+  isAdm: boolean;
 }

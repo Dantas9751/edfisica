@@ -12,12 +12,12 @@ export async function loginService(
 ): Promise<LoginResponse> {
   const response = await loginRequest({ matricula, password });
 
-  const { token, user } = response.data;
+  const { access_token, user } = response.data;
 
-  localStorage.setItem("authToken", token);
+  localStorage.setItem("authToken", access_token);
   localStorage.setItem("name", user.name);
   localStorage.setItem("matricula", user.matricula);
   localStorage.setItem("user", JSON.stringify(user));
 
-  return { token, user };
+  return { token: access_token, user };
 }

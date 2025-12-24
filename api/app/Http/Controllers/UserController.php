@@ -15,7 +15,7 @@ class UserController extends Controller
   public function indexAlunos()
   {
     $alunos = User::where('tipo', 'aluno')
-      ->select('id', 'name', 'matricula')
+      ->select('id', 'name', 'matricula', 'qtd_token')
       ->orderBy('name', 'asc')
       ->get();
 

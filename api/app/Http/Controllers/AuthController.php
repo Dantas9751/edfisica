@@ -32,7 +32,13 @@ class AuthController extends Controller
     return response()->json([
       'access_token' => $token,
       'token_type' => 'Bearer',
-      'user' => $user,
+      'user' => [
+        'matricula' => $user->matricula,
+        'name' => $user->name,
+        'qtd_token' => $user->qtd_token,
+        'tipo' => $user->tipo,
+        'isAdm' => $user->isAdm(),
+      ],
     ]);
   }
 
