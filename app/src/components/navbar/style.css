@@ -1,0 +1,7 @@
+.settings-button {
+  cursor: pointer;
+}
+
+.settings-button:active {
+  transform: scale(0.9);
+}

@@ -9,16 +9,20 @@ use App\Http\Controllers\UserController;
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+  Route::get('/user', function (Request $request) {
+    return $request->user();
+  });
 
-    Route::post('/auth/logout', [AuthController::class, 'logout']);
-    Route::post('/auth/verify-password', [AuthController::class, 'VerifyPassword']);
+  Route::get('/home', function () {
+    return view('home');
+  });
 
-    Route::get('/perfil', [TokenController::class, 'perfil']);
-    Route::post('/refeicao', [TokenController::class, 'registrarRefeicao']);
+  Route::post('/auth/logout', [AuthController::class, 'logout']);
+  Route::post('/auth/verify-password', [AuthController::class, 'VerifyPassword']);
 
-    
-    Route::get('/alunos', [UserController::class, 'indexAlunos']);
+  Route::get('/profile', [TokenController::class, 'profile']);
+  Route::post('/refeicao', [TokenController::class, 'registrarRefeicao']);
+
+
+  Route::get('/alunos', [UserController::class, 'indexAlunos']);
 });

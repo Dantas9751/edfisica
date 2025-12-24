@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function indexAlunos(){
-        $alunos = User::where('tipo', 'aluno')
-            ->select('id', 'name', 'matricula')
-            ->orderBy('name', 'asc')
-            ->get();
-            
-        return response()->json($alunos, 200);
-    }
+  public function indexAlunos()
+  {
+    $alunos = User::where('tipo', 'aluno')
+      ->select('id', 'name', 'matricula')
+      ->orderBy('name', 'asc')
+      ->get();
+
+    return response()->json($alunos, 200);
+  }
 }
