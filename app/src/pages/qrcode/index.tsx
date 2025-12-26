@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Scan, Info, RefreshCw, CheckCircle, XCircle } from "lucide-react";
 import QrCodeScanner from "../../components/qrscanner";
+import { useAuth } from "../../hooks/useAuth";
 import api from "../../api/api";
 
 import "./style.css";
@@ -11,6 +12,7 @@ function CodePage() {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [message, setMessage] = useState("");
+  const { updateUser } = useAuth();
 
   const handleScan = async (data: string) => {
     if (!data || status === "loading") return;
@@ -24,10 +26,18 @@ function CodePage() {
         setStatus("success");
 
         const novosTokens = response.data.tokens_restantes;
+
+        updateUser({ qtd_token: novosTokens });
+
+        if (novosTokens === 0) {
+          setMessage(`Sucesso! Vocês utilizou todos os tokens.`);
+          return;
+        }
+
         setMessage(`Sucesso! Você ainda tem ${novosTokens} tokens.`);
       } catch (error: any) {
         setStatus("error");
-        setMessage(error.response?.data?.message || "Erro ao validar token.");
+        setMessage(error.response.data.message);
       }
     }
   };
@@ -80,13 +90,15 @@ function CodePage() {
               {message || "Validando ticket..."}
             </p>
 
-            <button
-              onClick={resetScanner}
-              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-            >
-              <RefreshCw size={18} />
-              Tentar Novamente
-            </button>
+            {status != "success" && (
+              <button
+                onClick={resetScanner}
+                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+              >
+                <RefreshCw size={18} />
+                Tentar Novamente
+              </button>
+            )}
           </div>
         ) : (
           <QrCodeScanner onScan={handleScan} />

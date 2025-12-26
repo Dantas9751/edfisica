@@ -18,11 +18,23 @@ export function useAuth() {
     return userData;
   };
 
+  const updateUser = (data: Partial<User>) => {
+    setUser((prevUser) => {
+      if (!prevUser) return null;
+
+      const updatedUser = { ...prevUser, ...data };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      return updatedUser;
+    });
+  };
+
   const logout = () => {
     localStorage.clear();
     setUser(null);
     navigate("/");
   };
 
-  return { login, logout, user };
+  return { login, logout, user, updateUser };
 }
