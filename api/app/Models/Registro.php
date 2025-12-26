@@ -25,7 +25,7 @@ class Registro extends Model
    * facilitando formatações no frontend (ex: $registro->data_hora->format('d/m/Y')).
    */
   protected $casts = [
-    'data_hora' => 'datetime',
+    //'data_hora' => 'datetime',
   ];
 
   /**

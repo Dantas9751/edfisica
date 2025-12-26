@@ -34,20 +34,10 @@ function LoginPage() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-2xl backdrop-blur-sm mb-6 rotate-3">
               <LogIn className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold mb-4">Bem-vindo ao Sistema</h1>
+            <h1 className="text-3xl font-bold mb-4">Bem-vindo ao sistema</h1>
             <p className="text-teal-50 text-lg opacity-90 max-w-280px mx-auto">
-              Acesse sua conta e gerencie seus tokens de forma rápida e segura.
+              Acesse sua conta, gerencie seus tokens e mate sua fome!
             </p>
-          </div>
-
-          <div className="mt-12 w-full max-w-300px opacity-20 pointer-events-none">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-              <path
-                fill="#FFFFFF"
-                d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,88.5,-0.9C87,14.6,81.4,29.1,73.1,41.9C64.8,54.7,53.8,65.7,40.8,72.1C27.8,78.5,13.9,80.2,-0.5,81.1C-14.9,82,-29.8,82.1,-43.4,76C-57,69.9,-69.3,57.6,-77.1,43.3C-84.9,29,-88.2,12.7,-85.4,-2.4C-82.6,-17.5,-73.7,-31.4,-63.3,-44.1C-52.9,-56.8,-41,-68.3,-27.4,-75.8C-13.8,-83.3,1.5,-86.7,17.3,-83.6C33.1,-80.5,44.7,-76.4,44.7,-76.4Z"
-                transform="translate(100 100)"
-              />
-            </svg>
           </div>
         </div>
 

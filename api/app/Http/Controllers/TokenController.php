@@ -124,7 +124,7 @@ class TokenController extends Controller
         Registro::create([
           'user_id' => $userLocked->id,
           'tipo_refeicao' => $tipoRefeicao,
-          'data_hora' => now()
+          //'data_hora' => now()
         ]);
 
         $userLocked->decrement('qtd_token');
@@ -137,7 +137,7 @@ class TokenController extends Controller
       });
     } catch (\Exception $e) {
       return response()->json([
-        'message' => 'Erro interno ao processar solicitação.'
+        'message' => $e->getMessage()
       ], 500);
     }
   }

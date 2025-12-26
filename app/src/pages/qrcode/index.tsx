@@ -1,48 +1,95 @@
 import { useState } from "react";
-import { Scan, Info, RefreshCw } from "lucide-react";
+import { Scan, Info, RefreshCw, CheckCircle, XCircle } from "lucide-react";
 import QrCodeScanner from "../../components/qrscanner";
+import api from "../../api/api";
 
 import "./style.css";
 
 function CodePage() {
   const [qrResult, setQrResult] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [message, setMessage] = useState("");
+
+  const handleScan = async (data: string) => {
+    if (!data || status === "loading") return;
+
+    setQrResult(data);
+
+    if (data === "comidaifrj2026") {
+      setStatus("loading");
+      try {
+        const response = await api.post("/refeicao");
+        setStatus("success");
+
+        const novosTokens = response.data.tokens_restantes;
+        setMessage(`Sucesso! Você ainda tem ${novosTokens} tokens.`);
+      } catch (error: any) {
+        setStatus("error");
+        setMessage(error.response?.data?.message || "Erro ao validar token.");
+      }
+    }
+  };
+
+  const resetScanner = () => {
+    setQrResult("");
+    setStatus("idle");
+    setMessage("");
+  };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 gap-8">
+    <div className="flex flex-col items-center justify-center p-6 gap-8">
       <div className="text-center space-y-2">
         <h1 className="text-3xl text-emerald-600 font-bold">
           Escanear QR Code
         </h1>
         <h2 className="text-lg text-gray-500 font-medium max-w-xs">
-          Alinhe o QR code dentro do quadrado para escanear
+          Alinhe o QR code do refeitório para validar sua refeição
         </h2>
       </div>
 
       <div className="relative w-full max-w-[320px] aspect-square rounded-3xl overflow-hidden border-4 shadow-2xl flex items-center justify-center">
         {qrResult ? (
-          <div className="relative z-20 w-full h-full backdrop-blur-sm flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in duration-300">
-            <div className="bg-emerald-500/20 p-4 rounded-full mb-4">
-              <Scan size={40} className="text-emerald-400 animate-pulse" />
+          <div className="relative z-20 w-full h-full flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in duration-300">
+            <div className="mb-4">
+              {status === "loading" && (
+                <Scan size={40} className="text-emerald-400 animate-pulse" />
+              )}
+              {status === "success" && (
+                <CheckCircle size={40} className="text-emerald-500" />
+              )}
+              {status === "error" && (
+                <XCircle size={40} className="text-red-500" />
+              )}
             </div>
 
             <h3 className="font-bold text-xl mb-2 text-center">
-              Código Detectado!
+              {status === "success"
+                ? "Sucesso!"
+                : status === "error"
+                ? "Falha"
+                : "Processando..."}
             </h3>
 
-            <p className="text-emerald-400 text-center font-mono text-sm mb-6">
-              Processando ticket...
+            <p
+              className={`text-center font-mono text-sm mb-6 ${
+                status === "error" ? "text-red-500" : "text-emerald-400"
+              }`}
+            >
+              {message || "Validando ticket..."}
             </p>
 
             <button
-              onClick={() => setQrResult("")}
+              onClick={resetScanner}
               className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
             >
               <RefreshCw size={18} />
-              Repetir Scan
+              Tentar Novamente
             </button>
           </div>
         ) : (
-          <QrCodeScanner onScan={setQrResult} />
+          <QrCodeScanner onScan={handleScan} />
         )}
 
         {!qrResult && (
