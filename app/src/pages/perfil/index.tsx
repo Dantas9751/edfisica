@@ -47,7 +47,11 @@ function ProfilePage() {
                 Tokens Restantes
               </p>
               <p className="text-lg font-bold text-blue-900">
-                {user?.isAdm ? `#${user?.qtd_token ?? 0}` : "Não Possui."}
+                {user?.isAdm
+                  ? "Não Possui."
+                  : user?.qtd_token != 0
+                  ? `#${user?.qtd_token}`
+                  : "Não possui"}
               </p>
             </div>
           </div>
